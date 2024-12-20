@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import Column from '@/components/column';
 
 interface MonthPageProps {
     currMonth: string;
@@ -15,20 +15,12 @@ const MonthPage: React.FC<MonthPageProps> = ({ currMonth, monthIndex, employeeAr
         return Array.from({ length: daysInMonth }, (_, index) => index + 1);
     }, [currMonth]);
 
-    const Column = ({ index, value }: { index: number, value: string }) => {
-        const i_is_odd: boolean = (index % 2 === 1);
-
-        return (
-            <td className={classNames('p-1 border border-black border-collapse ' + ((i_is_odd) ? "" : "bg-gray-200 print:bg-gray-200 ")) + ((value == "") ? "pt-3 pb-3" : "")}>{value}</td>
-        )
-    }
-
     return (
-        <section className='print:[@page_{size:landscape}] w-[11.7in] m-auto max-h-[8.3in] border overflow-scroll print:overflow-hidden'>
+        <section className='print:[@page_{size:landscape}] w-[11.69in] m-auto max-h-[8.2in] h-100% border overflow-scroll print:overflow-hidden'>
             <h3 className="width-full text-center font-bold text-3xl">{currMonth}</h3>
             <table className='border-black border w-full table-fixed'>
                 <thead>
-                    <tr className="[&_:not(:first-child)]: table-fixed">
+                    <tr className="table-fixed">
                         <th className='w-[1in]'>Name</th>
                         {dateArray.map((_, i) => (
                             <th key={i} className='p-1 border border-black border-collapse'>{i + 1}</th>
