@@ -1,39 +1,87 @@
 'use client'
+'use strict'
 
-import React, { useState } from 'react';
-const months: String[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+import React, { useState, useMemo, useRef, JSX, createElement } from 'react';
+import MonthPage from '@/components/tableMain';
+import LendingPage from '@/components/lendingPage';
+import { useReactToPrint } from 'react-to-print';
+import classNames from 'classnames';
 
 export default function Home() {
 
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [allDivs, setAllDivs] = useState<JSX.Element[] | []>([]);
+  const [printElemVisible, changePrintElemState] = useState<boolean>(false);
+  const TotalDiv = () => <div ref={contentRef} className={classNames(printElemVisible ? "visible" : "hidden")}>{allDivs}</div>;
+  //@ts-ignore
+  const reactToPrintFn = useReactToPrint({ contentRef });
+
+  //memorizing the string for faster access using useMemo
+  const months: string[] = useMemo(() => {
+    return ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  }, []);
+
   const [currMonth, changeMonth] = useState("January");
-  let dateArray = [...Array(new Date(2025, months.indexOf(currMonth) + 1, 0).getDate())];
+  const [name, setName] = useState("");
+  const [emp_array, setEmpArray] = useState<string[]>(["Vasanta", "Aashish", "Aslam", "Anjum Baji"]);
+
+  //add name to employee array
+  const addName = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (name.trim() !== "") {
+      setEmpArray([...emp_array, name]);
+      setName("");
+    }
+  };
+
+  //print function, append all the divs to another div and then render it
+  const printAll = async () => {
+    setAllDivs([]);
+
+    for (const month of months) {
+      changeMonth(month);
+      await new Promise(resolve => setTimeout(resolve, 500)); // Wait for the state to update and render
+      await setAllDivs(prevDivs => [<div key={month}><MonthPage key={month} currMonth={month} monthIndex={months.indexOf(month)} employeeArray={emp_array} />< LendingPage /></div>, ...prevDivs]);
+    }
+
+    async function prepareToPrint() {
+      changePrintElemState(true);
+
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await reactToPrintFn();
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await changePrintElemState(false);
+    }
+    prepareToPrint();
+  }
 
   return (
-
-    <section className='w-[9.25in] border m-auto '>
+    <section>
       <div className="width-full flex place-content-center print:hidden mt-3">
-        {/*<input type='text' placeholder="Page width" className='border border-1 border-black mr-2 rounded-sm'></input>*/}
+        <form onSubmit={addName} className='mr-2 flex'>
+          <input type='text' value={name} onChange={(e) => setName(e.target.value)} placeholder="Add Name" className='border border-1 border-black w-28 pl-1 rounded-sm'></input>
+          <button type="submit" className='bg-slate-800 text-white ml-2 pr-1 pl-1 rounded-sm'>Add</button>
+        </form>
 
-        <select onChange={e => changeMonth(e.target.value)} className="text-center bg-red-400 rounded-sm p-1">
+        <select onChange={e => changeMonth(e.target.value)} value={currMonth} className="cursor-pointer text-center bg-red-400 rounded-sm p-1">
           {months.map((month, i) => (
             <option key={i}>{month}</option>
           ))}
         </select>
+
+        <button className='bg-slate-800 text-white ml-2 pr-1 pl-1 rounded-sm' onClick={printAll}>Print</button>
       </div>
 
       {/* Body, where data will be displayed */}
-      <h3 className="width-full text-center font-bold text-3xl">{currMonth}</h3>
-      <table className='border-black border'>
-        <thead>
-          <tr className="[&_:not(:first-child)]:w-1">
-            <th className='w-[2in]'>Name</th>
-            {dateArray.map((m, i) => (
-              <th key={i} className='p-1'>{i + 1}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+      <div ref={contentRef}>
+        {(
+          <>
+            <MonthPage currMonth={currMonth} monthIndex={months.indexOf(currMonth)} employeeArray={emp_array} />
+            <LendingPage />
+          </>
+        )}
+      </div>
+      <TotalDiv />
     </section>
   );
 }
