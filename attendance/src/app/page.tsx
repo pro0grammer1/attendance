@@ -41,7 +41,7 @@ export default function Home() {
     for (const month of months) {
       changeMonth(month);
       await new Promise(resolve => setTimeout(resolve, 500)); // Wait for the state to update and render
-      await setAllDivs(prevDivs => [<div key={month}><MonthPage key={month} currMonth={month} monthIndex={months.indexOf(month)} employeeArray={emp_array} />< LendingPage /></div>, ...prevDivs]);
+      await setAllDivs(prevDivs => [<div key={month}><MonthPage key={month} currMonth={month} monthIndex={months.indexOf(month)} employeeArray={emp_array} />< LendingPage currMonth={month} employeeArray={emp_array}/></div>, ...prevDivs]);
     }
 
     async function prepareToPrint() {
@@ -78,7 +78,7 @@ export default function Home() {
         {(
           <>
             <MonthPage currMonth={currMonth} monthIndex={months.indexOf(currMonth)} employeeArray={emp_array} />
-            <LendingPage />
+            <LendingPage currMonth={currMonth} employeeArray={emp_array} />
           </>
         )}
       </div>
