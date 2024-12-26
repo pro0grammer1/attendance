@@ -1,7 +1,7 @@
 'use client'
 'use strict'
 
-import React, { useState, useMemo, useRef, JSX, createElement } from 'react';
+import React, { useState, useMemo, useRef, JSX } from 'react';
 import MonthPage from '@/components/tableMain';
 import LendingPage from '@/components/lendingPage';
 import { useReactToPrint } from 'react-to-print';
@@ -13,7 +13,7 @@ export default function Home() {
   const [allDivs, setAllDivs] = useState<JSX.Element[] | []>([]);
   const [printElemVisible, changePrintElemState] = useState<boolean>(false);
   const TotalDiv = () => <div ref={contentRef} className={classNames(printElemVisible ? "visible" : "hidden")}>{allDivs}</div>;
-  //@ts-ignore
+  //@ts-expect-error
   const reactToPrintFn = useReactToPrint({ contentRef });
 
   //memorizing the string for faster access using useMemo

@@ -9,9 +9,9 @@ interface LendingPageProps {
 const LendingPage: React.FC<LendingPageProps> = ({ employeeArray, currMonth }) => {
 
     let arr: React.ReactElement[] = [];
-    let arr2: React.ReactElement[] = [];
+    const arr2: React.ReactElement[] = [];
     let keyConstant = 500;
-    let ColumnArray = () => {
+    const ColumnArray = () => {
         arr.push(<Column key={keyConstant++} index={1}/>);
 
         for (let j = 0; j < 12; j++) {
