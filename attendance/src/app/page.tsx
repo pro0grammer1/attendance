@@ -13,7 +13,7 @@ export default function Home() {
   const [allDivs, setAllDivs] = useState<JSX.Element[] | []>([]);
   const [printElemVisible, changePrintElemState] = useState<boolean>(false);
   const TotalDiv = () => <div ref={contentRef} className={classNames(printElemVisible ? "visible" : "hidden")}>{allDivs}</div>;
-  //@ts-expect-error
+  //@ts-expect-error error due to react-print, can't reproduce error
   const reactToPrintFn = useReactToPrint({ contentRef });
 
   //memorizing the string for faster access using useMemo
