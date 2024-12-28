@@ -12,7 +12,7 @@ export default function Home() {
   const contentRef = useRef<HTMLDivElement>(null);
   const [allDivs, setAllDivs] = useState<JSX.Element[] | []>([]);
   const [printElemVisible, changePrintElemState] = useState<boolean>(false);
-  const TotalDiv = () => <div ref={contentRef} className={classNames(printElemVisible ? "visible" : "hidden")}>{allDivs}</div>;
+  const TotalDiv = () => <div ref={contentRef} className={classNames(printElemVisible ? "visible" : "hidden", "bg-white")}>{allDivs}</div>;
   //@ts-expect-error error due to react-print, can't reproduce error
   const reactToPrintFn = useReactToPrint({ contentRef });
 
@@ -49,9 +49,10 @@ export default function Home() {
 
       await new Promise(resolve => setTimeout(resolve, 500));
       alert("Preparing to print, please wait..");
+      await new Promise(resolve => setTimeout(resolve, 500));
       await reactToPrintFn();
       await new Promise(resolve => setTimeout(resolve, 500));
-      changePrintElemState(false);
+      await changePrintElemState(false);
     }
     prepareToPrint();
   }
