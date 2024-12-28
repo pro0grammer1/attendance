@@ -49,7 +49,7 @@ export default function Home() {
 
       await new Promise(resolve => setTimeout(resolve, 500));
       alert("Preparing to print, please wait..");
-      reactToPrintFn();
+      await reactToPrintFn();
       await new Promise(resolve => setTimeout(resolve, 500));
       changePrintElemState(false);
     }
@@ -57,7 +57,7 @@ export default function Home() {
   }
 
   return (
-    <section>
+    <section className='bg-white'>
       <div className="width-full flex place-content-center print:hidden mt-3">
         <form onSubmit={addName} className='mr-2 flex'>
           <input type='text' value={name} onChange={(e) => setName(e.target.value)} placeholder="Add Name" className='border border-1 border-black w-28 pl-1 rounded-sm'></input>
@@ -74,7 +74,7 @@ export default function Home() {
       </div>
 
       {/* Body, where data will be displayed */}
-      <div ref={contentRef}>
+      <div ref={contentRef} className="bg-white">
         {(
           <>
             <MonthPage currMonth={currMonth} monthIndex={months.indexOf(currMonth)} employeeArray={emp_array} />
