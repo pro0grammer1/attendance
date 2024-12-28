@@ -21,11 +21,11 @@ const MonthPage: React.FC<MonthPageProps> = ({ currMonth, monthIndex, employeeAr
 
     return (
         <section className='bg-white print:[@page_{size:landscape}] w-[11.69in] m-auto max-h-[8.2in] h-100% border overflow-scroll print:overflow-hidden'>
-            <h3 className="width-full text-center font-bold text-3xl">{currMonth}</h3>
+            <h3 className="width-full  text-black text-center font-bold text-3xl">{currMonth}</h3>
             <table className='border-black border w-full table-fixed'>
                 <thead>
                     <tr className="table-fixed">
-                        <th className='w-[1in]'>Name</th>
+                        <th className='w-[1in] text-black'>Name</th>
                         {dateArray.map((_, i) => (
                             <th key={i} className='p-1 border border-black text-black border-collapse'>{i + 1}</th>
                         ))}

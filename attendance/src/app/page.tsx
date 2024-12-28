@@ -51,7 +51,7 @@ export default function Home() {
       alert("Preparing to print, please wait..");
       await new Promise(resolve => setTimeout(resolve, 500));
       await reactToPrintFn();
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 3000));
       await changePrintElemState(false);
     }
     prepareToPrint();

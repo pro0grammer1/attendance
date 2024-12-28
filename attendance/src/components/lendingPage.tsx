@@ -32,7 +32,7 @@ const LendingPage: React.FC<LendingPageProps> = ({ employeeArray, currMonth }) =
     ColumnArray();
     return (
         <section className='bg-white print:[@page_{size:landscape}] w-[11.69in] m-auto h-[8.2in] h-100% border overflow-scroll print:overflow-hidden'>
-            <h3 className="width-full text-center font-bold text-2xl">{currMonth} Month Lending and Payment Record</h3>
+            <h3 className="width-full text-center text-black font-bold text-2xl">{currMonth} Month Lending and Payment Record</h3>
             <table className='border-black border w-full table-fixed'>
                 <tbody>
                     {arr2}
