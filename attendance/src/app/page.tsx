@@ -13,8 +13,12 @@ export default function Home() {
   const [allDivs, setAllDivs] = useState<JSX.Element[] | []>([]);
   const [printElemVisible, changePrintElemState] = useState<boolean>(false);
   const TotalDiv = () => <div ref={contentRef} className={classNames(printElemVisible ? "visible" : "hidden", "bg-white")}>{allDivs}</div>;
-  //@ts-expect-error error due to react-print, can't reproduce error
-  const reactToPrintFn = useReactToPrint({ contentRef });
+
+  const reactToPrintFn = useReactToPrint({
+    //@ts-expect-error error due to react-print, can't reproduce error
+    content: () => contentRef.current,
+    pageStyle: "@media print { @page { size: A4 landscape; margin: 0; } }",
+  });
 
   //memorizing the string for faster access using useMemo
   const months: string[] = useMemo(() => {
