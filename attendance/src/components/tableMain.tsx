@@ -20,7 +20,7 @@ const MonthPage: React.FC<MonthPageProps> = ({ currMonth, monthIndex, employeeAr
     let tempMonthDay = monthDay;
 
     return (
-        <section className='bg-white w-[11.69in] m-auto max-h-[8.2in] h-100% border overflow-scroll'>
+        <section className='bg-white w-[29.7cm] m-auto max-h-[21cm] h-100% border overflow-scroll'>
             <h3 className="width-full  text-black text-center font-bold text-3xl">{currMonth}</h3>
             <table className='border-black border w-full table-fixed'>
                 <thead>
