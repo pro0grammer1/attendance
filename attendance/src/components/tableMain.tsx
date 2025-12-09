@@ -11,12 +11,12 @@ const MonthPage: React.FC<MonthPageProps> = ({ currMonth, monthIndex, employeeAr
 
     //a null array to iterate over elements
     const dateArray = React.useMemo(() => {
-        const daysInMonth = new Date(2025, monthIndex + 1, 0).getDate();
+        const daysInMonth = new Date(2026, monthIndex + 1, 0).getDate();
         return Array.from({ length: daysInMonth }, (_, index) => index + 1);
     }, [currMonth]);
 
     const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    const monthDay = new Date(2025, monthIndex, 0).getDay() - 1;
+    const monthDay = new Date(2026, monthIndex, 0).getDay() - 1;
     let tempMonthDay = monthDay;
 
     return (
