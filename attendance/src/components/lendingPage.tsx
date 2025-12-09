@@ -15,12 +15,12 @@ const LendingPage: React.FC<LendingPageProps> = ({ employeeArray, currMonth }) =
         arr.push(<Column key={keyConstant++} index={1}/>);
 
         for (let j = 0; j < 12; j++) {
-            arr.push(<Column key={keyConstant++} index={1} value={employeeArray[j]} />);
+            arr.push(<Column key={keyConstant++} index={1} value={(j % 2) ? 'Amount' : 'Date'} />);
         }
 
         arr2.push(<tr key={-1}>{...arr}</tr>); arr = [];
         for (let j = 0; j < 30; j++) {
-            arr.push(<Column key={keyConstant++} index={1} value={(j % 2) ? 'Amount' : 'Date'} />);
+            arr.push(<Column key={keyConstant++} index={1} value={j%2? employeeArray[Math.floor(j/2)] : ""} />);
             for (let i = 1; i < 13; i++) {
                 arr.push(<Column key={keyConstant++} index={j} value="" />);
             }
